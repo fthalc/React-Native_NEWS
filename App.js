@@ -1,8 +1,9 @@
 import React,{useState } from 'react';
-import { Text, FlatList,View ,TextInput, SafeAreaView, ImageBackground, Dimensions,TouchableHighlight, Alert, Platform, StatusBar} from 'react-native';
- 
+import { Text,FlatList,View ,TextInput, SafeAreaView, ImageBackground, Dimensions,TouchableHighlight, Alert, Platform, StatusBar} from 'react-native';
+import Icon from "react-native-vector-icons/Entypo";
+
 const App = ({navigation}) => {
-  const [text, setText] = useState('');
+  const [text ,setText] = useState('');
   const numColumns = 3;
   const tileWidth = Dimensions.get('window').width / numColumns;
   const imageBaseUrl = "https://images.unsplash.com/photo-";
@@ -14,7 +15,6 @@ const App = ({navigation}) => {
     { category: 'Health', name:'Sağlık',imageId: '1526256262350-7da7584cf5eb' },
     { category: 'Business',name:'İş', imageId: '1542222024-c39e2281f121' },
     { category: 'Entertainment',name:'Eğlence', imageId: '1503676260728-1c00da094a0b' },
-    { category: 'General',name:'Genel', imageId: '1494059980473-813e73ee784b' },
   ];
 
   const renderItem = ({ item }) => {
@@ -35,7 +35,9 @@ const App = ({navigation}) => {
           textAlign: 'center',
           color: '#fff',
           fontSize: 25
-        }}>{item.name}</Text>
+        }}>{item.name}
+        </Text>
+        
       </ImageBackground>
      </TouchableHighlight>
   );
@@ -43,14 +45,18 @@ const App = ({navigation}) => {
   return (
     <SafeAreaView>
        <View style={{padding: 10}}>
-      <TextInput
-        style={{height: 40}}
-        placeholder="Ara.."
-        onChangeText={newText => setText(newText)}
-        defaultValue={text}
-      />
       
-      
+      <View style={{ backgroundColor:'#e2e2e2',flexDirection: 'row', alignItems:'center',justifyContent: 'space-between',borderRadius:10,padding:5 }} >
+                        
+        <TextInput
+          style={{color:'#000',height: 40,width:tileWidth}}
+          placeholder="Ara.."
+          placeholderTextColor="#000"
+          onChangeText={newText => setText(newText)}
+          defaultValue={text}/>
+          <Icon onPress={() => navigation.navigate('Headlines', { category: text,name:text})}
+          name="magnifying-glass" size={30} style={{paddingRight: 5,color:'#000'}}/>
+      </View>
     </View>
       <FlatList
         data={dataSource}
